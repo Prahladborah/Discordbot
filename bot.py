@@ -7,7 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get the token from environment variables
-TOKEN = os.getenv('TOKEN')
+TOKEN = os.getenv('DISCORD_TOKEN')
+
+# Check if the token is loaded correctly
+if TOKEN is None:
+    raise ValueError("DISCORD_TOKEN environment variable is not set")
 
 # Define leveling information
 leveling_info = {
@@ -72,4 +76,3 @@ async def grind(ctx):
         await ctx.send("You took too long to respond! Please try again.")
 
 bot.run(TOKEN)
-
