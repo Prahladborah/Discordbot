@@ -1,10 +1,9 @@
 import os
 import discord
+import asyncio
 from discord.ext import commands
 from dotenv import load_dotenv
-import asyncio
 from tabulate import tabulate
-
 
 # Load environment variables from .env file (useful for local development)
 load_dotenv()
@@ -77,11 +76,15 @@ async def grind(ctx):
         msg = await bot.wait_for('message', check=check, timeout=10)
         level = int(msg.content)
         info = get_leveling_info(level)
-        await ctx.send(f"Based on your current level ({level}), you should go to: {info}")
+        if info:
+            embed = discord.Embed(title=f"Leveling Information for Level {info[0]}", color=discord.Color.green())
+            embed.add_field(name="Location", value=info[1], inline=False)
+            embed.add_field(name="Monster", value=info[2], inline=False)
+            embed.add_field(name="Additional Info", value=info[3], inline=False)
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send("Level out of range. Please provide a valid level.")
     except asyncio.TimeoutError:
         await ctx.send("You took too long to respond! Please try again.")
-    except ValueError:
-        await ctx.send("Invalid input! Please provide a valid number for your level.")
-
 
 bot.run(TOKEN)
