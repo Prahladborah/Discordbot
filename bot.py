@@ -60,7 +60,7 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 async def on_ready():
     print(f'Logged in as {bot.user}')
 
-@bot.command(name='level')
+@bot.command(name='grind')
 async def grind(ctx):
     await ctx.send("Please provide your current level:")
 
