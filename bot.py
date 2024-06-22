@@ -77,4 +77,3 @@ async def grind(ctx):
         await ctx.send("You took too long to respond! Please try again.")
 
 bot.run(TOKEN)
-
