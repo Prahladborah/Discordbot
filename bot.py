@@ -2,7 +2,6 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import asyncio
 
 # Load environment variables from .env file (useful for local development)
 load_dotenv()
@@ -17,7 +16,7 @@ if TOKEN is None:
 # Define leveling information
 leveling_info = {
     range(1, 34): "Nisel Mountain:Mountainside - Shell Mask..keep grinding till you reach 34 to 36",
-    range(34, 50): "Ancient Empress Tomb: Area 1 (Monster:Bone Dragonewt) Level there till at least 50 or 56",
+    range(34, 50): "Ancient Empress Tomb: Area 1 (Monster:Bone Dragonewt)Level there till at least 50 or 56",
     range(50, 60): "Land Of Chaos: 'Hidden boss: Forestia' (normal/hard), Level there till 60",
     range(60, 69): "Land Of Chaos: 'Hidden boss: Forestia' (Nightmare), Level there till 69",
     range(70, 80): "Land Under Cultivation:Hill: Masked Warrior (Hard) Level there till 74-76",
