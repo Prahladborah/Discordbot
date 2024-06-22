@@ -73,16 +73,13 @@ async def grind(ctx):
         level = int(msg.content)
         place, monster, element = get_leveling_info(level)
         
-        # Create a thread for the response
-        thread = await ctx.message.create_thread(name=f"Grinding Info for Level {level}")
-        
         embed = discord.Embed(title=f"Grinding Info for Level {level}", color=discord.Color.blue())
         embed.add_field(name="Level", value=f"{level}", inline=True)
         embed.add_field(name="Place", value=f"{place}", inline=True)
         embed.add_field(name="Monster", value=f"{monster}", inline=True)
         embed.add_field(name="Element", value=f"{element}", inline=True)
         
-        await thread.send(embed=embed)
+        await ctx.send(embed=embed)
     except asyncio.TimeoutError:
         await ctx.send("You took too long to respond! Please try again.")
 
