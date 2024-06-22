@@ -69,7 +69,7 @@ async def grind(ctx):
         return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.isdigit()
 
     try:
-        msg = await bot.wait_for('message', check=check, timeout=10)
+        msg = await bot.wait_for('message', check=check, timeout=30)
         level = int(msg.content)
         place, monster, element = get_leveling_info(level)
         
