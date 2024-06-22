@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-TOKEN = 'MTI1MzY5NDE2NDE3NzI2MDY2NQ.GwbuPl.G0Jil7sXkR6BlEs2RLGLvBLnSpUuFUqKf6Cu6g'
+TOKEN = 'MTI1MzY5NDE2NDE3NzI2MDY2NQ.GyIr1i.VAXw_dsSDzJz6SHMw7XXz_0p_CnqAxdJtTcd_I'
 
 # Define leveling information
 leveling_info = {
