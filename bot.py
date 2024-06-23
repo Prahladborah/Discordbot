@@ -3,7 +3,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from dotenv import load_dotenv
-from tabulate import tabulate
+import random
 
 # Load environment variables from .env file (useful for local development)
 load_dotenv()
@@ -12,7 +12,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Debugging statement
-print(f"Token: DISCORD_TOKEN")  # Ensure this prints the actual token (or part of it for security reasons)
+print(f"Token: {TOKEN[:5]}...")  # Ensure this prints the actual token (or part of it for security reasons)
 
 # Check if the token is loaded correctly
 if TOKEN is None:
@@ -98,8 +98,19 @@ async def on_message(message):
     content = message.content.lower()
 
     # Greeting responses
-    if any(greeting in content for greeting in ['hello everyone', 'hi everyone', 'hello', 'hi']):
-        await message.reply('Hello! Welcome back!','Greetings','welcome back baka')
+    greetings = ['hello everyone', 'hi everyone', 'hello', 'hi']
+    responses = [
+        'Hello! Welcome back!',
+        'Greetings!',
+        'Welcome back, master!',
+        'Hi there! How can I assist you today?',
+        'Hello! How are you doing?',
+        'Hey! Nice to see you!'
+    ]
+
+    if any(greeting in content for greeting in greetings):
+        response = random.choice(responses)
+        await message.reply(response)
 
     # Initial trigger for help
     elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me']):
@@ -147,8 +158,7 @@ async def on_message(message):
                 )
                 embed.add_field(name='1. Weapon Forging', value='Create powerful weapons.')
                 embed.add_field(name='2. Armor Crafting', value='Improve your defenses.')
-                embed.add_field(name='3. Material Gathering', value='Tips for gathering materials.')
-                embed.add_field(name='4. Enhancements', value='Improve your equipment.')
+                embed.add_field(name='3. Material Gathering', value='Find materials for crafting.')
                 await message.reply(embed=embed)
                 state = 'blacksmithing'
 
