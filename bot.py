@@ -93,8 +93,6 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    await bot.process_commands(message)  # Ensure commands are still processed
-
     content = message.content.lower()
 
     # Greeting responses
@@ -108,9 +106,22 @@ async def on_message(message):
         'Hey! Nice to see you!'
     ]
 
+    # Humorous responses for "potato guide"
+    potato_responses = [
+        "Don't call me potato, you potato baka!",
+        "Who are you calling a potato? Take that back, potato-head!",
+        "Potato guide? I'm not a potato, I'm a fully grown spud, thank you very much!",
+        "Excuse me? I'm not a potato, I'm a bot with a superior intellect, thank you.",
+        "Did you just call me a potato? That's a low blow, my friend!"
+    ]
+
     if any(greeting in content for greeting in greetings):
         response = random.choice(responses)
-        await message.reply(response)
+        await message.channel.send(response)
+
+    elif 'potato guide' in content:
+        response = random.choice(potato_responses)
+        await message.channel.send(response)
 
     # Initial trigger for help
     elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me']):
@@ -123,7 +134,7 @@ async def on_message(message):
         embed.add_field(name='2. Blacksmithing', value='Information on weapon forging, armor crafting, etc.')
         embed.add_field(name='3. Synthesis', value='Material and attribute synthesis, enchantments.')
         embed.add_field(name='4. Equipment', value='Information on various types of equipment.')
-        await message.reply(embed=embed)
+        await message.channel.send(embed=embed)
 
         # State variable to track user's current state
         global state
@@ -147,7 +158,7 @@ async def on_message(message):
                 embed.add_field(name='7) Katana Build', value='Katana builds.')
                 embed.add_field(name='8) Dual Sword Build', value='Dual sword builds.')
                 embed.add_field(name='9) Hybrid Build', value='Combination of different weapons and skills.')
-                await message.reply(embed=embed)
+                await message.channel.send(embed=embed)
                 state = 'builds'
 
             elif 'blacksmithing' in content:
@@ -156,10 +167,9 @@ async def on_message(message):
                     description='Here are some topics I can help you with:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1. Weapon Forging', value='Create powerful weapons.')
-                embed.add_field(name='2. Armor Crafting', value='Improve your defenses.')
-                embed.add_field(name='3. Material Gathering', value='Find materials for crafting.')
-                await message.reply(embed=embed)
+                embed.add_field(name='1) Forging', value='Craft weapons and armor.')
+                embed.add_field(name='2) Materials', value='Find materials for crafting.')
+                await message.channel.send(embed=embed)
                 state = 'blacksmithing'
 
             elif 'synthesis' in content:
@@ -168,10 +178,10 @@ async def on_message(message):
                     description='Here are some topics I can help you with:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1. Material Synthesis', value='Combine materials.')
-                embed.add_field(name='2. Attribute Synthesis', value='Transfer attributes.')
-                embed.add_field(name='3. Enchantments', value='Add magical properties to items.')
-                await message.reply(embed=embed)
+                embed.add_field(name='1) Material Synthesis', value='Combine materials.')
+                embed.add_field(name='2) Attribute Synthesis', value='Transfer attributes.')
+                embed.add_field(name='3) Enchantments', value='Add magical properties to items.')
+                await message.channel.send(embed=embed)
                 state = 'synthesis'
 
             elif 'equipment' in content:
@@ -180,10 +190,10 @@ async def on_message(message):
                     description='Here are some topics I can help you with:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1. Weapons', value='Different types of weapons.')
-                embed.add_field(name='2. Armor', value='Various types of armor.')
-                embed.add_field(name='3. Accessories', value='Additional items for stats.')
-                await message.reply(embed=embed)
+                embed.add_field(name='1) Weapons', value='Different types of weapons.')
+                embed.add_field(name='2) Armor', value='Various types of armor.')
+                embed.add_field(name='3) Accessories', value='Additional items for stats.')
+                await message.channel.send(embed=embed)
                 state = 'equipment'
 
         elif state == 'builds':
@@ -200,7 +210,7 @@ async def on_message(message):
             }
             for build, description in build_options.items():
                 if build in content:
-                    await message.reply(description)
+                    await message.channel.send(description)
                     state = 'main_menu'
                     break
 
