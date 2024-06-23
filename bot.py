@@ -61,6 +61,20 @@ intents.messages = True
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
 
+# Define a list of random expressions
+random_expressions = [
+    "Oh really?",
+    "That's interesting...",
+    "Tell me more!",
+    "Fascinating!",
+    "Hmm...",
+    "I see...",
+    "Interesting...",
+    "Wow!",
+    "No way!",
+    "Cool!"
+]
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
@@ -115,7 +129,12 @@ async def on_message(message):
         "Did you just call me a potato? That's a low blow, my friend!"
     ]
 
-    if any(greeting in content for greeting in greetings):
+    # Random expressions for "..."
+    if content == '...':
+        response = ', '.join(random.sample(random_expressions, k=random.randint(1, 10)))
+        await message.channel.send(response)
+
+    elif any(greeting in content for greeting in greetings):
         response = random.choice(responses)
         await message.channel.send(response)
 
@@ -146,7 +165,7 @@ async def on_message(message):
             if 'builds' in content:
                 embed = discord.Embed(
                     title='Builds',
-                    description='Choose one build from my database:',
+                    description='Here are some build options:',
                     color=discord.Color.blue()
                 )
                 embed.add_field(name='1) 0HS Build', value='1-handed sword and sub weapons.')
