@@ -127,6 +127,14 @@ async def on_message(message):
         "Potato guide? I'm not a potato, I'm a fully grown spud, thank you very much!",
         "Excuse me? I'm not a potato, I'm a bot with a superior intellect, thank you.",
         "Did you just call me a potato? That's a low blow, my friend!"
+        "You're the real spud here!"
+        "Potato? I'm a technologically advanced tuber!"
+        "Do I look like I belong in a stew?"
+        "Hey, no need to hashbrown me!"
+        "Who you calling potato, tater tot?"
+        "Don't be a small fry"
+        "That's Mr. Potato Head to you!"
+        
     ]
 
     # Random expressions for "..."
