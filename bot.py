@@ -97,8 +97,12 @@ async def on_message(message):
 
     content = message.content.lower()
 
+    # Greeting responses
+    if any(greeting in content for greeting in ['hello everyone', 'hi everyone', 'hello', 'hi']):
+        await message.reply('Hello! Welcome back!')
+
     # Initial trigger for help
-    if any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me',]):
+    elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me']):
         embed = discord.Embed(
             title=f'How can I help you, {message.author.name}?',
             description='I can give you information regarding:',
@@ -154,182 +158,51 @@ async def on_message(message):
                     description='Here are some topics I can help you with:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1. Material Synthesis', value='Create materials for crafting.')
-                embed.add_field(name='2. Attribute Synthesis', value='Enhance your equipment attributes.')
-                embed.add_field(name='3. Crafting Accessories', value='Craft accessories with various bonuses.')
-                embed.add_field(name='4. Enchantments', value='Add special effects to your equipment.')
+                embed.add_field(name='1. Material Synthesis', value='Combine materials.')
+                embed.add_field(name='2. Attribute Synthesis', value='Transfer attributes.')
+                embed.add_field(name='3. Enchantments', value='Add magical properties to items.')
                 await message.reply(embed=embed)
                 state = 'synthesis'
 
-            # Add handling for other options here (e.g., 'equipment')
+            elif 'equipment' in content:
+                embed = discord.Embed(
+                    title='Equipment',
+                    description='Here are some topics I can help you with:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1. Weapons', value='Different types of weapons.')
+                embed.add_field(name='2. Armor', value='Various types of armor.')
+                embed.add_field(name='3. Accessories', value='Additional items for stats.')
+                await message.reply(embed=embed)
+                state = 'equipment'
 
         elif state == 'builds':
-            # Handle builds submenu
-            if '1' in content or '0hs build' in content:
-                embed = discord.Embed(
-                    title='0HS Build',
-                    description='This is a type of build where the primary weapon is a 1-handed sword followed by sub weapons.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular 1-handed sword builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '2' in content or '2hs build' in content:
-                embed = discord.Embed(
-                    title='2HS Build',
-                    description='This is a type of build where the primary weapon is a 2-handed sword.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular 2-handed sword builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '3' in content or 'archer build' in content:
-                embed = discord.Embed(
-                    title='Archer Build',
-                    description='This is a type of build where the primary weapon is a bow.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular archer builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '4' in content or 'bow gun build' in content:
-                embed = discord.Embed(
-                    title='Bow Gun Build',
-                    description='This is a type of build where the primary weapon is a bow gun.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular bow gun builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '5' in content or 'mage build' in content:
-                embed = discord.Embed(
-                    title='Mage Build',
-                    description='This is a type of build where the primary weapon is a staff.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular mage builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '6' in content or 'halberd build' in content:
-                embed = discord.Embed(
-                    title='Halberd Build',
-                    description='This is a type of build where the primary weapon is a halberd.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular halberd builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '7' in content or 'katana build' in content:
-                embed = discord.Embed(
-                    title='Katana Build',
-                    description='This is a type of build where the primary weapon is a katana.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular katana builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '8' in content or 'dual sword build' in content:
-                embed = discord.Embed(
-                    title='Dual Sword Build',
-                    description='This is a type of build where the primary weapons are dual swords.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular dual sword builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            elif '9' in content or 'hybrid build' in content:
-                embed = discord.Embed(
-                    title='Hybrid Build',
-                    description='This is a hybrid build where you combine different weapons and skills.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Popular hybrid builds', value='[Link to video]')
-                await message.reply(embed=embed)
-
-            # After handling, reset state to main_menu
-            state = 'main_menu'
+            build_options = {
+                '0hs': '0HS Build: 1-handed sword and sub weapons.',
+                '2hs': '2HS Build: 2-handed sword builds.',
+                'archer': 'Archer Build: Bow builds.',
+                'bow gun': 'Bow Gun Build: Bow gun builds.',
+                'mage': 'Mage Build: Staff builds.',
+                'halberd': 'Halberd Build: Halberd builds.',
+                'katana': 'Katana Build: Katana builds.',
+                'dual sword': 'Dual Sword Build: Dual sword builds.',
+                'hybrid': 'Hybrid Build: Combination of different weapons and skills.'
+            }
+            for build, description in build_options.items():
+                if build in content:
+                    await message.reply(description)
+                    state = 'main_menu'
+                    break
 
         elif state == 'blacksmithing':
-            # Handle blacksmithing submenu
-            if 'weapon forging' in content or '1' in content:
-                embed = discord.Embed(
-                    title='Weapon Forging',
-                    description='Weapon forging allows you to create powerful weapons.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for weapon forging', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            elif 'armor crafting' in content or '2' in content:
-                embed = discord.Embed(
-                    title='Armor Crafting',
-                    description='Armor crafting is essential for improving your defenses.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for armor crafting', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            elif 'material gathering' in content or '3' in content:
-                embed = discord.Embed(
-                    title='Material Gathering',
-                    description='Gathering materials is crucial for blacksmithing.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for material gathering', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            elif 'enhancements' in content or '4' in content:
-                embed = discord.Embed(
-                    title='Enhancements',
-                    description='Enhancements can greatly improve your equipment.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for enhancements', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            # After handling, reset state to main_menu
-            state = 'main_menu'
-
+            # Handle blacksmithing topics
+            pass
         elif state == 'synthesis':
-            # Handle synthesis submenu
-            if 'material synthesis' in content or '1' in content:
-                embed = discord.Embed(
-                    title='Material Synthesis',
-                    description='Material synthesis allows you to create materials for crafting.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for material synthesis', value='[Link to guide]')
-                await message.reply(embed=embed)
+            # Handle synthesis topics
+            pass
+        elif state == 'equipment':
+            # Handle equipment topics
+            pass
 
-            elif 'attribute synthesis' in content or '2' in content:
-                embed = discord.Embed(
-                    title='Attribute Synthesis',
-                    description='Attribute synthesis allows you to enhance your equipment attributes.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for attribute synthesis', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            elif 'crafting accessories' in content or '3' in content:
-                embed = discord.Embed(
-                    title='Crafting Accessories',
-                    description='Craft accessories with various bonuses.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for crafting accessories', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            elif 'enchantments' in content or '4' in content:
-                embed = discord.Embed(
-                    title='Enchantments',
-                    description='Add special effects to your equipment.',
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name='Tips for enchantments', value='[Link to guide]')
-                await message.reply(embed=embed)
-
-            # After handling, reset state to main_menu
-            state = 'main_menu'
-    
-
+# Run the bot
 bot.run(TOKEN)
