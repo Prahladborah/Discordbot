@@ -8,9 +8,6 @@ async def grind(ctx, arg=None):
         try:
             level = int(arg)
             info = get_leveling_info(level)
-            if info:
-                await ctx.send(info)
-            else:
-                await ctx.send("Leveling information not found for the specified level.")
+            await ctx.send(info)
         except ValueError:
-            await ctx.send("Invalid level. Please provide a valid number.")
+            await ctx.send("Please provide a valid level number.")
