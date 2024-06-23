@@ -97,16 +97,6 @@ async def on_message(message):
 
     content = message.content.lower()
 
-     # Greeting responses
-    if 'good morning' in content:
-        await message.channel.send(f"Good morning, {message.author.name}!")
-    elif 'good afternoon' in content:
-        await message.channel.send(f"Good afternoon, {message.author.name}!")
-    elif 'good evening' in content:
-        await message.channel.send(f"Good evening, {message.author.name}!")
-    elif 'good night' in content:
-        await message.channel.send(f"Good night, {message.author.name}!")
-
     # Initial trigger for help
     if any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me',]):
         embed = discord.Embed(
