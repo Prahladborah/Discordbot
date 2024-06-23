@@ -1,9 +1,10 @@
 def get_leveling_info(level):
-    leveling_areas = [
-        (range(1, 34), "Nisel Mountain:Mountainside", "Shell Mask", "Keep grinding till you reach 34 to 36"),
+    # Define the leveling information
+    leveling_info = [
+        (range(1, 34), "Nisel Mountain:Mountainside", "Shell Mask", "keep grinding till you reach 34 to 36"),
         (range(34, 50), "Ancient Empress Tomb: Area 1", "Bone Dragonewt", "Level there till at least 50 or 56"),
-        (range(50, 60), "Land Of Chaos", "Hidden boss: Forestia (normal/hard)", "Level there till 60"),
-        (range(60, 69), "Land Of Chaos", "Hidden boss: Forestia (Nightmare)", "Level there till 69"),
+        (range(50, 60), "Land Of Chaos", "'Hidden boss: Forestia' (normal/hard)", "Level there till 60"),
+        (range(60, 69), "Land Of Chaos", "'Hidden boss: Forestia' (Nightmare)", "Level there till 69"),
         (range(70, 80), "Land Under Cultivation:Hill", "Masked Warrior (Hard)", "Level there till 74-76"),
         (range(80, 90), "Land Under Cultivation:Hill", "Masked Warrior (Nightmare)", "Level there till 90-94"),
         (range(90, 100), "Gravel Terrace:Jade Raptor (Nightmare) or Polde Ice Valley", "Don-Yeti", "Level till 100-104"),
@@ -23,13 +24,13 @@ def get_leveling_info(level):
         (range(220, 230), "Recetacula Sector: Depot Rooftop", "Gravicep (Ultimate) or better to do main quest", "Level there till 230"),
         (range(230, 245), "Arche Valley: Depths", "Arachnidemon (Ultimate)", "Better suggestion: do mq till 250"),
         (range(245, 260), "Operation Zone: Cockpit Area", "Trickster Dragon Mimyugon (Nightmare)", ""),
-        (range(260, 285), "No info", "", "Do mq till 285"),
+        (range(260, 285), "NO info", "", "DO mq till 285"),
         (range(285, 295), "Boss colon", "", ""),
-        (range(295, 300), "Boss colon", "", ""),
+        (range(295, 300), "Boss colon", "", "")
     ]
 
-    for level_range, area, enemy, note in leveling_areas:
+    for level_range, location, enemy, notes in leveling_info:
         if level in level_range:
-            return f"Area: {area}\nEnemy: {enemy}\nNote: {note}"
-
-    return None
+            return f"Level {level}: {location}, Enemy: {enemy}, Notes: {notes}"
+    
+    return "Level information not found."
