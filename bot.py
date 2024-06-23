@@ -99,7 +99,7 @@ async def on_message(message):
 
     # Greeting responses
     if any(greeting in content for greeting in ['hello everyone', 'hi everyone', 'hello', 'hi']):
-        await message.reply('Hello! Welcome back!')
+        await message.reply('Hello! Welcome back!','Greetings','welcome back baka')
 
     # Initial trigger for help
     elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me']):
