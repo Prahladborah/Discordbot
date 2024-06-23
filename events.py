@@ -40,6 +40,26 @@ class MyBot(commands.Bot):
             "That's Mr. Potato Head to you!",
         ]
 
+        baka_responses = [
+            "Baka? Oh no, you've exposed my secret identity as a clumsy AI! 😳!",
+            "Well, I guess I'm the baka that needs to learn from the master. Your wisdom astounds me",
+            "Baka? That's Mr. Baka to you! At least I'm a professional at it.",
+            "Excuse me? I'm not a bakaaaa, I'm a the bot of bot with a superior intellect, thank you potatoooo",
+            "I may be a baka, but at least I’m the cutest baka around",
+            "You're the real baaaaakaa here uwu!",
+            "Don't be a small fry",
+            "That's Mr. Potato Head to you!",
+            "Being called a baka by you is like a compliment, really. Keep 'em coming ewe",
+        ]
+
+         ok_responses = [
+            "GOOD",
+             "oh okie",
+             "uwu",
+            
+        ]
+
+
         if any(greeting in content for greeting in greetings):
             response = random.choice(responses)
             await message.channel.send(response)
@@ -47,6 +67,15 @@ class MyBot(commands.Bot):
         elif 'potato guide' in content:
             response = random.choice(potato_responses)
             await message.channel.send(response)
+        elif 'potato bot' in content:
+            response = random.choice(potato_responses)
+            await message.channel.send(response)
+        elif 'baka bot' in content:
+            response = random.choice(baka_responses)
+            await message.channel.send(response)
+            if 'not you' in content:
+                response = random.choice(ok_responses)
+                await message.channel.send(response)
 
         # Initial trigger for help
         elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me', 'hey guide','elite guide','hey elite']):
