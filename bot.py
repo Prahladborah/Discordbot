@@ -12,7 +12,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Debugging statement
-print(f"Token: {TOKEN}")  # Ensure this prints the actual token (or part of it for security reasons)
+print(f"Token:DISCORD_TOKEN")  # Ensure this prints the actual token (or part of it for security reasons)
 
 # Check if the token is loaded correctly
 if TOKEN is None:
