@@ -117,7 +117,7 @@ async def on_message(message):
         'Welcome back, master!',
         'Hi there! How can I assist you today?',
         'Hello! How are you doing?',
-        'Hey! Nice to see you!'
+        'Hey! Nice to see you!',
     ]
 
     # Humorous responses for "potato guide"
@@ -126,14 +126,14 @@ async def on_message(message):
         "Who are you calling a potato? Take that back, potato-head!",
         "Potato guide? I'm not a potato, I'm a fully grown spud, thank you very much!",
         "Excuse me? I'm not a potato, I'm a bot with a superior intellect, thank you.",
-        "Did you just call me a potato? That's a low blow, my friend!"
-        "You're the real spud here!"
-        "Potato? I'm a technologically advanced tuber!"
-        "Do I look like I belong in a stew?"
-        "Hey, no need to hashbrown me!"
-        "Who you calling potato, tater tot?"
-        "Don't be a small fry"
-        "That's Mr. Potato Head to you!"
+        "Did you just call me a potato? That's a low blow, my friend!",
+        "You're the real spud here!",
+        "Potato? I'm a technologically advanced tuber!",
+        "Do I look like I belong in a stew?",
+        "Hey, no need to hashbrown me!",
+        "Who you calling potato, tater tot?",
+        "Don't be a small fry",
+        "That's Mr. Potato Head to you!",
         
     ]
 
