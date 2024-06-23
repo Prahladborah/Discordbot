@@ -61,20 +61,6 @@ intents.messages = True
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-# Define a list of random expressions
-random_expressions = [
-    "Oh really?",
-    "That's interesting...",
-    "Tell me more!",
-    "Fascinating!",
-    "Hmm...",
-    "I see...",
-    "Interesting...",
-    "Wow!",
-    "No way!",
-    "Cool!"
-]
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
@@ -137,12 +123,7 @@ async def on_message(message):
         
     ]
 
-    # Random expressions for "..."
-    if content == '...':
-        response = ', '.join(random.sample(random_expressions, k=random.randint(1, 10)))
-        await message.channel.send(response)
-
-    elif any(greeting in content for greeting in greetings):
+    if any(greeting in content for greeting in greetings):
         response = random.choice(responses)
         await message.channel.send(response)
 
@@ -150,8 +131,7 @@ async def on_message(message):
         response = random.choice(potato_responses)
         await message.channel.send(response)
 
-    # Initial trigger for help
-    elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me']):
+    elif any(x in content for x in ['is anyone here who can help me', 'i need help', 'someone help me', 'hey guide', 'elite guide', 'hey elite']):
         embed = discord.Embed(
             title=f'How can I help you, {message.author.name}?',
             description='I can give you information regarding:',
@@ -159,16 +139,12 @@ async def on_message(message):
         )
         embed.add_field(name='1. Builds', value='Learn about different builds.')
         embed.add_field(name='2. Blacksmithing', value='Information on weapon forging, armor crafting, etc.')
-        embed.add_field(name='3. Synthesis', value='Material and attribute synthesis, enchantments.')
+        embed.add_field(name='3. Synthesis', value='Material and synthesis, enchantments.')
         embed.add_field(name='4. Equipment', value='Information on various types of equipment.')
         await message.channel.send(embed=embed)
-
-        # State variable to track user's current state
-        global state
         state = 'main_menu'
 
     else:
-        # Handle responses based on the current state
         if state == 'main_menu':
             if 'builds' in content:
                 embed = discord.Embed(
@@ -242,14 +218,95 @@ async def on_message(message):
                     break
 
         elif state == 'blacksmithing':
-            # Handle blacksmithing topics
-            pass
+            if 'forging' in content:
+                embed = discord.Embed(
+                    title='Forging',
+                    description='Here is some information on forging:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Weapons', value='How to forge weapons.')
+                embed.add_field(name='2) Armor', value='How to forge armor.')
+                await message.channel.send(embed=embed)
+                state = 'blacksmithing_forging'
+            
+            elif 'materials' in content:
+                embed = discord.Embed(
+                    title='Materials',
+                    description='Here is some information on materials:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Common Materials', value='Materials commonly used in crafting.')
+                embed.add_field(name='2) Rare Materials', value='Materials that are harder to find.')
+                await message.channel.send(embed=embed)
+                state = 'blacksmithing_materials'
+        
         elif state == 'synthesis':
-            # Handle synthesis topics
-            pass
-        elif state == 'equipment':
-            # Handle equipment topics
-            pass
+            if 'material synthesis' in content:
+                embed = discord.Embed(
+                    title='Material Synthesis',
+                    description='Here is some information on material synthesis:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Combining Materials', value='How to combine materials for better results.')
+                embed.add_field(name='2) Material Properties', value='Understanding the properties of materials.')
+                await message.channel.send(embed=embed)
+                state = 'synthesis_material_synthesis'
+            
+            elif 'attribute synthesis' in content:
+                embed = discord.Embed(
+                    title='Attribute Synthesis',
+                    description='Here is some information on attribute synthesis:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Transferring Attributes', value='How to transfer attributes between items.')
+                embed.add_field(name='2) Attribute Effects', value='Understanding the effects of different attributes.')
+                await message.channel.send(embed=embed)
+                state = 'synthesis_attribute_synthesis'
+            
+            elif 'enchantments' in content:
+                embed = discord.Embed(
+                    title='Enchantments',
+                    description='Here is some information on enchantments:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Adding Enchantments', value='How to add enchantments to items.')
+                embed.add_field(name='2) Enchantment Effects', value='Understanding the effects of enchantments.')
+                await message.channel.send(embed=embed)
+                state = 'synthesis_enchantments'
 
+        elif state == 'equipment':
+            if 'weapons' in content:
+                embed = discord.Embed(
+                    title='Weapons',
+                    description='Here is some information on different types of weapons:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Swords', value='Different types of swords and their uses.')
+                embed.add_field(name='2) Bows', value='Different types of bows and their uses.')
+                embed.add_field(name='3) Staffs', value='Different types of staffs and their uses.')
+                await message.channel.send(embed=embed)
+                state = 'equipment_weapons'
+            
+            elif 'armor' in content:
+                embed = discord.Embed(
+                    title='Armor',
+                    description='Here is some information on different types of armor:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Light Armor', value='Benefits of light armor.')
+                embed.add_field(name='2) Heavy Armor', value='Benefits of heavy armor.')
+                await message.channel.send(embed=embed)
+                state = 'equipment_armor'
+            
+            elif 'accessories' in content:
+                embed = discord.Embed(
+                    title='Accessories',
+                    description='Here is some information on accessories:',
+                    color=discord.Color.blue()
+                )
+                embed.add_field(name='1) Rings', value='Different types of rings and their effects.')
+                embed.add_field(name='2) Amulets', value='Different types of amulets and their effects.')
+                await message.channel.send(embed=embed)
+                state = 'equipment_accessories'
 # Run the bot
 bot.run(TOKEN)
