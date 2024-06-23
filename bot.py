@@ -1,5 +1,6 @@
 import os
 import discord
+import asyncio
 from discord.ext import commands
 from dotenv import load_dotenv
 from responses import send_greeting_response, send_potato_response, send_baka_response
