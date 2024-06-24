@@ -1,6 +1,7 @@
 import os
 import discord
 import yaml
+import asyncio
 from discord.ext import commands
 from local_ai_chatbot import get_local_ai_response  # Import the local AI chat bot function
 
