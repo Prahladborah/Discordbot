@@ -1,5 +1,5 @@
 discord:
-  token: YOUR_DISCORD_BOT_TOKEN
+  token: DISCORD_TOKEN
 
 bot:
   prefix: "/"
