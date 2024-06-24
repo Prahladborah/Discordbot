@@ -8,8 +8,8 @@ from local_ai_chatbot import get_local_ai_response  # Import the local AI chat b
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
-# Get the token from configuration
-TOKEN = config['discord']['token']
+# Get the token from environment variable
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 # Check if the token is loaded correctly
 if TOKEN is None:
