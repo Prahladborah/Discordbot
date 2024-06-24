@@ -1,0 +1,22 @@
+discord:
+  token: YOUR_DISCORD_BOT_TOKEN
+
+bot:
+  prefix: "/"
+
+intents:
+  messages: true
+  message_content: true
+
+modules:
+  - cogs.builds
+  - cogs.blacksmithing
+  - cogs.synthesis
+  - cogs.equipment
+  - events
+
+ai:
+  model_name: gpt2  # Model name for the local AI chatbot (e.g., gpt2, gpt2-medium, gpt2-large, gpt2-xl)
+  max_length: 150
+  num_return_sequences: 1
+  temperature: 0.7
