@@ -1,14 +1,15 @@
 import os
 import discord
-import asyncio
+import yaml
 from discord.ext import commands
-from dotenv import load_dotenv
+from local_ai_chatbot import get_local_ai_response  # Import the local AI chat bot function
 
-# Load environment variables from .env file
-load_dotenv()
+# Load configuration from .yml file
+with open('config.yml', 'r') as file:
+    config = yaml.safe_load(file)
 
-# Get the token from environment variables
-TOKEN = os.getenv('DISCORD_TOKEN')
+# Get the token from configuration
+TOKEN = config['discord']['token']
 
 # Check if the token is loaded correctly
 if TOKEN is None:
@@ -16,8 +17,8 @@ if TOKEN is None:
 
 # Define the bot with intents
 intents = discord.Intents.default()
-intents.messages = True
-intents.message_content = True
+intents.messages = config['intents']['messages']
+intents.message_content = config['intents']['message_content']
 
 class MyBot(commands.Bot):
     def __init__(self, command_prefix, **options):
@@ -25,22 +26,24 @@ class MyBot(commands.Bot):
         self.state = 'main_menu'
         
     async def setup_hook(self):
-        await self.load_extension('cogs.builds')
-        await self.load_extension('cogs.blacksmithing')
-        await self.load_extension('cogs.synthesis')
-        await self.load_extension('cogs.equipment')
-        await self.load_extension('events')
+        for module in config['modules']:
+            await self.load_extension(module)
         
     async def on_ready(self):
         print(f'Logged in as {self.user}')
 
 # Create the bot instance
-bot = MyBot(command_prefix='/', intents=intents)
+bot = MyBot(command_prefix=config['bot']['prefix'], intents=intents)
 
 # Register commands
 @bot.command(name='grind')
 async def grind_command(ctx, level: int):
     await grind(ctx, level)
+
+@bot.command(name='chat')
+async def chat_command(ctx, *, prompt: str):
+    response = await get_local_ai_response(prompt)
+    await ctx.send(response)
 
 # Run the bot
 bot.run(TOKEN)
