@@ -1,5 +1,5 @@
 import discord
-from helpers import get_leveling_info
+from helpers import level_info  # Assuming get_leveling_info is defined in helpers.py
 
 async def grind(ctx, level: int = None):
     if level is None:
