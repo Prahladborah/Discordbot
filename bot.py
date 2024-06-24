@@ -3,7 +3,6 @@ import discord
 import yaml
 import asyncio
 from discord.ext import commands
-from local_ai_chatbot import get_local_ai_response  # Import the local AI chat bot function
 
 # Load configuration from .yml file
 with open('config.yml', 'r') as file:
@@ -41,10 +40,6 @@ bot = MyBot(command_prefix=config['bot']['prefix'], intents=intents)
 async def grind_command(ctx, level: int):
     await grind(ctx, level)
 
-@bot.command(name='chat')
-async def chat_command(ctx, *, prompt: str):
-    response = await get_local_ai_response(prompt)
-    await ctx.send(response)
 
 # Run the bot
 bot.run(TOKEN)
