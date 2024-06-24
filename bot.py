@@ -2,7 +2,6 @@ import os
 import discord
 import yaml
 import asyncio
-from discord.ext import commands
 
 # Load configuration from .yml file
 with open('config.yml', 'r') as file:
@@ -24,22 +23,16 @@ class MyBot(commands.Bot):
     def __init__(self, command_prefix, **options):
         super().__init__(command_prefix, **options)
         self.state = 'main_menu'
-        
+    
     async def setup_hook(self):
         for module in config['modules']:
             await self.load_extension(module)
-        
+    
     async def on_ready(self):
         print(f'Logged in as {self.user}')
 
 # Create the bot instance
 bot = MyBot(command_prefix=config['bot']['prefix'], intents=intents)
-
-# Register commands
-@bot.command(name='grind')
-async def grind_command(ctx, level: int):
-    await grind(ctx, level)
-
 
 # Run the bot
 bot.run(TOKEN)
