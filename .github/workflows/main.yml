@@ -27,5 +27,6 @@ jobs:
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
       run: |
+        ls -al  # List all files to check if config.yml is present
+        cat config.yml  # Display the content of config.yml for debugging
         python bot.py
-
