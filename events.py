@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from level_info import get_leveling_info  # Ensure this import is correct
 from help_triggers import send_help_trigger
-from responses import send_greeting_response, send_potato_response, send_baka_response
+from responses import send_potato_response, send_baka_response
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -24,9 +24,6 @@ class Events(commands.Cog):
         if 'i need help' in content or 'hey elite' in content or 'hey guide' in content or 'hey elite guide' in content or 'someone help me' in content:
             await send_help_trigger(message)
             return
-
-        # Add greeting response
-        await send_greeting_response(message, content)
 
         # Add potato response
         await send_potato_response(message, content)
