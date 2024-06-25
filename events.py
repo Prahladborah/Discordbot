@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
-from level_info import get_leveling_info  # Make sure this import is correct
+from level_info import get_leveling_info
+from 
+
 
 class Events(commands.Cog):
     def __init__(self, bot):
@@ -12,6 +14,18 @@ class Events(commands.Cog):
             return
 
         content = message.content.lower()
+
+        if 'hello' in content or 'hi' in content:
+            await send_greeting(message)
+            return
+
+        if 'potato' in content:
+            await send_potato_response(message)
+            return
+
+        if 'i need help' in content:
+            self.bot.state = await send_help_trigger(message)
+            return
 
         # Add the trigger for the grind function
         if 'where should i level' in content or 'leveling info' in content:
