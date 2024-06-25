@@ -1,16 +1,6 @@
 import discord
 import random
 
-greetings = ['hello everyone', 'hi everyone', 'hello', 'hi']
-greeting_responses = [
-    'Hello! Welcome back!',
-    'Greetings!',
-    'Welcome back, master!',
-    'Hi there! How can I assist you today?',
-    'Hello! How are you doing?',
-    'Hey! Nice to see you!',
-]
-
 potato_responses = [
     "Don't call me potato, you potato baka!",
     "Who are you calling a potato? Take that back, potato-head!",
@@ -27,7 +17,7 @@ potato_responses = [
 ]
 
 baka_responses = [
-    "Baka? Oh no, you've exposed my secret identity as a clumsy AI! 😳!",
+    "Baka? Oh no, you've exposed my secret identity as a clumsy AI!!",
     "Well, I guess I'm the baka that needs to learn from the master. Your wisdom astounds me",
     "Baka? That's Mr. Baka to you! At least I'm a professional at it.",
     "Excuse me? I'm not a bakaaaa, I'm a the bot of bot with a superior intellect, thank you potatoooo",
@@ -38,16 +28,6 @@ baka_responses = [
     "Being called a baka by you is like a compliment, really. Keep 'em coming ewe",
 ]
 
-ok_responses = [
-    "GOOD",
-    "oh okie",
-    "uwu",
-]
-
-async def send_greeting_response(message, content):
-    if any(greeting in content for greeting in greetings):
-        response = random.choice(greeting_responses)
-        await message.channel.send(response)
 
 async def send_potato_response(message, content):
     if 'potato guide' in content or 'potato bot' in content:
@@ -58,6 +38,4 @@ async def send_baka_response(message, content):
     if 'baka bot' in content:
         response = random.choice(baka_responses)
         await message.channel.send(response)
-        if 'not you' in content:
-            response = random.choice(ok_responses)
-            await message.channel.send(response)
+      
