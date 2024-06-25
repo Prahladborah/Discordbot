@@ -13,9 +13,9 @@ class Synthesis(commands.Cog):
                 description='Here are some topics I can help you with:',
                 color=discord.Color.blue()
             )
-            embed.add_field(name='1) Material Synthesis', value='Combine materials.')
-            embed.add_field(name='2) Attribute Synthesis', value='Transfer attributes.')
-            embed.add_field(name='2) Enchantment Effects', value='Understanding the effects of enchantments.')
+            embed.add_field(name='1) Material Synthesis', value='Under development.')
+            embed.add_field(name='2) Equipment Synthesis', value='Under development.')
+            embed.add_field(name='2) Item Effects', value='Under development.')
             await message.channel.send(embed=embed)
             self.bot.state = 'synthesis_enchantments'
 
