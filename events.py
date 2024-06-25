@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from level_info import get_leveling_info  # Make sure this import is correct
+from level_info import get_leveling_info  # Ensure this import is correct
 from help_triggers import send_help_trigger
 from responses import send_greeting_response, send_potato_response, send_baka_response
 
