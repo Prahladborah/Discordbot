@@ -1,5 +1,4 @@
 def get_leveling_info(level):
-    # Define the leveling information
     leveling_info = [
         (range(1, 34), "Nisel Mountain:Mountainside", "Shell Mask", "keep grinding till you reach 34 to 36"),
         (range(34, 50), "Ancient Empress Tomb: Area 1", "Bone Dragonewt", "Level there till at least 50 or 56"),
@@ -31,6 +30,6 @@ def get_leveling_info(level):
 
     for level_range, location, enemy, notes in leveling_info:
         if level in level_range:
-            return f"Level {level}: {location}, Enemy: {enemy}, Notes: {notes}"
+            return (f"{level_range.start} - {level_range.stop-1}", location, enemy, notes)
     
-    return "Level information not found."
+    raise ValueError("Level information not found.")
