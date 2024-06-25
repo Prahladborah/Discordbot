@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from level_info import get_leveling_info  # Make sure this import is correct
 from help_triggers import send_help_trigger
 from responses import send_greeting_response, send_potato_response, send_baka_response
 
@@ -15,12 +16,12 @@ class Events(commands.Cog):
         content = message.content.lower()
 
         # Add the trigger for the grind function
-        if 'where should i level' in content or 'leveling info' in content:
+        if 'where should i level' in content or 'leveling info' in content or 'where i level' in content or 'where to level' in content:
             await self.grind(message)
             return
 
         # Add help trigger
-        if 'i need help' in content:
+        if 'i need help' in content or 'hey elite' in content or 'hey guide' in content or 'hey elite guide' in content or 'someone help me' in content:
             await send_help_trigger(message)
             return
 
@@ -46,13 +47,24 @@ class Events(commands.Cog):
                 break
 
         if level is None:
-            await message.channel.send("Please provide a level number. Example: 'Where should I level at 50?'")
+            await message.channel.send("Please provide a level number. Example: 'Where should I level at (provide your level)'")
         else:
             try:
                 info = get_leveling_info(level)
-                await message.channel.send(info)
+                await self.send_level_info_embed(message, info)
             except ValueError:
                 await message.channel.send("Please provide a valid level number.")
+
+    async def send_level_info_embed(self, message, info):
+        # Extract information for embedding
+        level_range, location, enemy, notes = info
+
+        embed = discord.Embed(title=f'Leveling Info for Level {level_range}', color=discord.Color.blue())
+        embed.add_field(name='Location', value=location, inline=True)
+        embed.add_field(name='Enemy', value=enemy, inline=True)
+        embed.add_field(name='Notes', value=notes if notes else 'No additional notes', inline=False)
+
+        await message.channel.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(Events(bot))
