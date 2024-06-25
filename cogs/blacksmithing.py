@@ -13,8 +13,8 @@ class Blacksmithing(commands.Cog):
                 description='Here are some topics I can help you with:',
                 color=discord.Color.blue()
             )
-            embed.add_field(name='1) Forging', value='Craft weapons and armor.')
-            embed.add_field(name='2) Materials', value='Find materials for crafting.')
+            embed.add_field(name='1) Forging', value='this section is under development.')
+            embed.add_field(name='2) Materials', value='this section is under development.')
             await message.channel.send(embed=embed)
             self.bot.state = 'blacksmithing'
 
