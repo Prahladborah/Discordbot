@@ -1,6 +1,6 @@
 import os
 import discord
-import yaml
+import yml
 import asyncio
 from discord.ext import commands
 
