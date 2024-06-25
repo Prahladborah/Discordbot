@@ -26,9 +26,9 @@ class Equipment(commands.Cog):
                     description='Here is some information on different types of weapons:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1) Swords', value='Different types of swords and their uses.')
-                embed.add_field(name='2) Bows', value='Different types of bows and their uses.')
-                embed.add_field(name='3) Staffs', value='Different types of staffs and their uses.')
+                embed.add_field(name='1) Swords', value='this section is under development.')
+                embed.add_field(name='2) Bows', value='this section is under development.')
+                embed.add_field(name='3) Staffs', value='this section is under development.')
                 await message.channel.send(embed=embed)
                 self.bot.state = 'equipment_weapons'
 
@@ -38,19 +38,19 @@ class Equipment(commands.Cog):
                     description='Here is some information on different types of armor:',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1) Light Armor', value='Benefits of light armor.')
-                embed.add_field(name='2) Heavy Armor', value='Benefits of heavy armor.')
+                embed.add_field(name='1) Light Armor', value="Switching to light armor not only alters your character's appearance but also enhances gameplay with evasion bonuses and increased movement speed, making it ideal for agile, DPS-focused builds using dual-wield daggers or halberds.")
+                embed.add_field(name='2) Heavy Armor', value='Heavy armor significantly boosts defense and magic defense, enhances guard recharge speed, but comes with a 50% attack speed reduction and a 10% evasion penalty, impacting overall damage output and dodging capability.')
                 await message.channel.send(embed=embed)
                 self.bot.state = 'equipment_armor'
 
             elif 'additionals' in message.content.lower():
                 embed = discord.Embed(
                     title='Accessories',
-                    description='Here is some information on accessories:',
+                    description='this section is under development',
                     color=discord.Color.blue()
                 )
-                embed.add_field(name='1) Rings', value='Different types of rings and their effects.')
-                embed.add_field(name='2) Amulets', value='Different types of amulets and their effects.')
+                embed.add_field(name='1) Rings', value='no info')
+                embed.add_field(name='2) Additionals', value='no info')
                 await message.channel.send(embed=embed)
                 self.bot.state = 'equipment_accessories'
 
