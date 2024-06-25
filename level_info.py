@@ -30,6 +30,16 @@ def get_leveling_info(level):
 
     for level_range, location, enemy, notes in leveling_info:
         if level in level_range:
-            return (f"{level_range.start} - {level_range.stop-1}", location, enemy, notes)
+            level_info = (
+                f"Level Range: {level_range.start} - {level_range.stop-1}\n"
+                f"Location: {location}\n"
+                f"Enemy: {enemy}\n"
+                f"Notes: {notes}"
+            )
+            return level_info
     
     raise ValueError("Level information not found.")
+
+# Example usage:
+level = 75
+print(get_leveling_info(level))
