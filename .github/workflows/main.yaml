@@ -21,10 +21,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install discord.py python-dotenv tabulate
+        pip install discord.py python-dotenv pyyaml transformers torch
 
     - name: Run bot
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
       run: |
+        ls -al  # List all files to check if config.yml is present
+        cat config.yml  # Display the content of config.yml for debugging
         python bot.py
