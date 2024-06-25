@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 from level_info import get_leveling_info
-from 
+from responses import greeting_responses, potato_responses, baka_responses, ok_responses, 
+from help_triggers import send_help_trigger
 
 
 class Events(commands.Cog):
@@ -14,23 +15,6 @@ class Events(commands.Cog):
             return
 
         content = message.content.lower()
-
-        if 'hello' in content or 'hi' in content:
-            await send_greeting(message)
-            return
-
-        if 'potato' in content:
-            await send_potato_response(message)
-            return
-
-        if 'i need help' in content:
-            self.bot.state = await send_help_trigger(message)
-            return
-
-        # Add the trigger for the grind function
-        if 'where should i level' in content or 'leveling info' in content:
-            await self.grind(message)
-            return
 
         # Process other messages
         await self.bot.process_commands(message)
