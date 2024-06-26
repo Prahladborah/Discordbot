@@ -21,18 +21,26 @@ intents.message_content = config['intents']['message_content']
 
 class MyBot(commands.Bot):
     def __init__(self, command_prefix, **options):
-        super().__init__(command_prefix, **options)
+        super().__init__(command_prefix, intents=intents, **options)
         self.state = 'main_menu'
     
     async def setup_hook(self):
         for module in config['modules']:
-            await self.load_extension(module)
-    
+            try:
+                self.load_extension(module)
+                print(f'Loaded extension: {module}')
+            except Exception as e:
+                print(f'Failed to load extension {module}: {e}')
+
     async def on_ready(self):
         print(f'Logged in as {self.user}')
 
 # Create the bot instance
-bot = MyBot(command_prefix=config['bot']['prefix'], intents=intents)
+bot = MyBot(command_prefix=config['bot']['prefix'])
 
 # Run the bot
+@bot.event
+async def on_ready():
+    await bot.setup_hook()
+
 bot.run(TOKEN)
