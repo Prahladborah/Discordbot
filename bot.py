@@ -1,38 +1,68 @@
-import os
 import discord
-import yaml
 from discord.ext import commands
+import yaml
+from level_info import get_leveling_info
+from help_triggers import send_help_trigger
+from responses import send_potato_response, send_baka_response
 
-# Load configuration from .yml file
-with open('config.yml', 'r') as file:
-    config = yaml.safe_load(file)
+with open('config.yml', 'r') as f:
+    config = yaml.safe_load(f)
 
-# Get the token from environment variable
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = config['discord']['TOKEN']
+PREFIX = config['bot']['prefix']
 
-# Check if the token is loaded correctly
-if TOKEN is None:
-    raise ValueError("DISCORD_TOKEN environment variable is not set")
-
-# Define the bot with intents
 intents = discord.Intents.default()
 intents.messages = config['intents']['messages']
 intents.message_content = config['intents']['message_content']
 
-class MyBot(commands.Bot):
-    def __init__(self, command_prefix, **options):
-        super().__init__(command_prefix, **options)
-        self.state = 'main_menu'
-    
-    async def setup_hook(self):
-        for module in config['modules']:
-            await self.load_extension(module)
-    
-    async def on_ready(self):
-        print(f'Logged in as {self.user}')
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
-# Create the bot instance
-bot = MyBot(command_prefix=config['bot']['prefix'], intents=intents)
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user}')
 
-# Run the bot
-bot.run(TOKEN)
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+
+    content = message.content.lower()
+
+    if 'where should i level' in content or 'leveling info' in content or 'where i level' in content or 'where to level' in content:
+        await grind(message)
+        return
+
+    if any(trigger in content for trigger in ['i need help', 'hey elite', 'hey guide', 'hey elite guide', 'someone help me']):
+        await send_help_trigger(message)
+        return
+
+    await send_potato_response(message, content)
+    await send_baka_response(message, content)
+
+    await bot.process_commands(message)
+
+async def grind(message):
+    words = message.content.split()
+    level = next((int(word) for word in words if word.isdigit()), None)
+
+    if level is None:
+        await message.channel.send("Please provide a level number. Example: 'Where should I level at (provide your level)'")
+    else:
+        try:
+            info = get_leveling_info(level)
+            await send_level_info_embed(message, info)
+        except ValueError:
+            await message.channel.send("Please provide a valid level number.")
+
+async def send_level_info_embed(message, info):
+    level_range, location, enemy, notes = info
+
+    embed = discord.Embed(title=f'Leveling Info for Level {level_range}', color=discord.Color.blue())
+    embed.add_field(name='Location', value=location, inline=True)
+    embed.add_field(name='Enemy', value=enemy, inline=True)
+    embed.add_field(name='Notes', value=notes if notes else 'No additional notes', inline=False)
+
+    await message.channel.send(embed=embed)
+
+if __name__ == '__main__':
+    bot.run(TOKEN)
