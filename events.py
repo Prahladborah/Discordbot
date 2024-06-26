@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from level_info import get_leveling_info  # Ensure this import is correct
+from level_info import get_leveling_info
 from help_triggers import send_help_trigger
 from responses import send_potato_response, send_baka_response
 
@@ -21,7 +21,7 @@ class Events(commands.Cog):
             return
 
         # Add help trigger
-        if 'i need help' in content or 'hey elite' in content or 'hey guide' in content or 'hey elite guide' in content or 'someone help me' in content:
+        if any(trigger in content for trigger in ['i need help', 'hey elite', 'hey guide', 'hey elite guide', 'someone help me']):
             await send_help_trigger(message)
             return
 
@@ -37,11 +37,7 @@ class Events(commands.Cog):
     async def grind(self, message):
         # Extract the level from the message
         words = message.content.split()
-        level = None
-        for word in words:
-            if word.isdigit():
-                level = int(word)
-                break
+        level = next((int(word) for word in words if word.isdigit()), None)
 
         if level is None:
             await message.channel.send("Please provide a level number. Example: 'Where should I level at (provide your level)'")
@@ -63,5 +59,5 @@ class Events(commands.Cog):
 
         await message.channel.send(embed=embed)
 
-async def setup(bot):
-    await bot.add_cog(Events(bot))
+def setup(bot):
+    bot.add_cog(Events(bot))
