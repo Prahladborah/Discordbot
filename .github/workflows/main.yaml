@@ -26,10 +26,20 @@ jobs:
       - name: Set up environment variables
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          BOT_PREFIX: "/"  # Adjust if your prefix is different
-          INTENTS_MESSAGES: true
-          INTENTS_MESSAGE_CONTENT: true
-          MODULES: "cogs.builds,cogs.blacksmithing,cogs.synthesis,cogs.equipment,events"
+        run: |
+          echo "discord:" > config.yml
+          echo "  TOKEN: $DISCORD_TOKEN" >> config.yml
+          echo "bot:" >> config.yml
+          echo "  prefix: \"/\"" >> config.yml
+          echo "intents:" >> config.yml
+          echo "  messages: true" >> config.yml
+          echo "  message_content: true" >> config.yml
+          echo "modules:" >> config.yml
+          echo "  - cogs.builds" >> config.yml
+          echo "  - cogs.blacksmithing" >> config.yml
+          echo "  - cogs.synthesis" >> config.yml
+          echo "  - cogs.equipment" >> config.yml
+          echo "  - events" >> config.yml
 
       - name: Run bot
         run: python bot.py
