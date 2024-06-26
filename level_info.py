@@ -1,5 +1,5 @@
 def get_leveling_info(level):
-    level_info = [
+    levelling_info = [
         (range(1, 34), "Nisel Mountain:Mountainside", "Shell Mask", "keep grinding till you reach 34 to 36"),
         (range(34, 50), "Ancient Empress Tomb: Area 1", "Bone Dragonewt", "Level there till at least 50 or 56"),
         (range(50, 60), "Land Of Chaos", "'Hidden boss: Forestia' (normal/hard)", "Level there till 60"),
