@@ -1,45 +1,30 @@
-name: Discord Bot Deployment
-
+name: Bot Discord Bot Workflow
 on:
   push:
     branches:
-      - main  # Adjust branch name if needed
-
+      - main
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Replace with your Python version
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # Replace with your requirements file if needed
 
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Set up environment variables
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-        run: |
-          echo "discord:" > config.yml
-          echo "  TOKEN: $DISCORD_TOKEN" >> config.yml
-          echo "bot:" >> config.yml
-          echo "  prefix: \"/\"" >> config.yml
-          echo "intents:" >> config.yml
-          echo "  messages: true" >> config.yml
-          echo "  message_content: true" >> config.yml
-          echo "modules:" >> config.yml
-          echo "  - cogs.builds" >> config.yml
-          echo "  - cogs.blacksmithing" >> config.yml
-          echo "  - cogs.synthesis" >> config.yml
-          echo "  - cogs.equipment" >> config.yml
-          echo "  - events" >> config.yml
-
-      - name: Run bot
-        run: python bot.py
+    - name: Run bot
+      run: python bot.py  # Replace with your bot file name
+      
+    - name: Run bot continuously
+      run: |
+        while true; do
+          python bot.py
+          sleep 5
+        done
