@@ -1,3 +1,4 @@
+import os
 import discord
 from discord.ext import commands
 
@@ -45,5 +46,10 @@ async def embed(ctx, title: str, *, content: str):
     else:
         await ctx.send("Please use this command in a direct message.")
 
-# Replace 'YOUR_TOKEN_HERE' with your bot's token
-bot.run('YOUR_TOKEN_HERE')
+# Accessing Discord token from environment variable
+discord_token = os.getenv('DISCORD_TOKEN')
+if discord_token is None:
+    print("DISCORD_TOKEN environment variable not found.")
+else:
+    # Replace 'YOUR_TOKEN_HERE' with your bot's token
+    bot.run(discord_token)
