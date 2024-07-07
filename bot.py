@@ -8,8 +8,8 @@ intents.messages = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # Replace this with your Discord user ID and the ID of the channel where you want the bot to post the embeds
-YOUR_USER_ID = 123456789012345678
-TARGET_CHANNEL_ID = 123456789012345678
+YOUR_USER_ID = prahlad9741
+TARGET_CHANNEL_ID = 1253610711490498623
 
 @bot.event
 async def on_ready():
